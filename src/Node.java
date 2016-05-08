@@ -3,5 +3,13 @@
  */
 public class Node {
     // value
+    int val = 0;
+
     // weight
+    double weight = 0.0;
+
+    public Node(int val, double weight) {
+        this.val = val;
+        this.weight = weight;
+    }
 }

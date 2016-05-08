@@ -10,22 +10,29 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String filename;
+        int maxIter = 0;
 
         // get file from user
         System.out.println("Enter a filename or path");
         System.out.print("> ");
         filename = sc.next();
+        System.out.println("Enter a max number of iterations:");
+        System.out.print("> ");
+        maxIter = sc.nextInt();
+
+        Data trainingData = new Data(new FileHandler(filename));
+
+        Perceptron perceptron = new Perceptron(maxIter, trainingData);
+        perceptron.train();
+
+        System.out.println("Enter a filename for a test dataset");
+        System.out.println("> ");
+        filename = sc.next();
+
+        Data testData = new Data(new FileHandler(filename));
+        perceptron.test(testData);
 
         sc.close();
-
-        Data data = new Data(new FileHandler(filename));
-        data.displayData();
-
-        // turn file into data
-        // pass data to perceptron
-        // train the perceptron
-        // test the perceptron
-        // take in more data and classify it
     }
 
 }

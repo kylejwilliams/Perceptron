@@ -13,6 +13,7 @@ public class Data {
     FileHandler fh = null;
     String[] fileData = {};
     List<HashMap<Integer, Integer>> data = new ArrayList<>();
+    List<Node> layer = new ArrayList<>();
     int numDecisionVariables = 0;
     int totalData = 0;
 
@@ -56,6 +57,4 @@ public class Data {
             System.out.println(h);
         }
     }
-
-    // override arraylist to deep copy
 }
