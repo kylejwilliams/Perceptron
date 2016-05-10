@@ -1,43 +1,36 @@
-import java.io.File;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by Kyle on 5/5/2016.
+ * Data Class
+ *
+ * This class represents a table of data used throughout the program. Data is created from a space-separated file
+ * where each column represents a different attribute and the last column within the file is the classifier.
  */
-public class Data {
-    // FileHandler
-    // lines of data
-    FileHandler fh = null;
-    String[] fileData = {};
+class Data {
     List<HashMap<Integer, Integer>> data = new ArrayList<>();
-    List<Node> layer = new ArrayList<>();
-    int numDecisionVariables = 0;
-    int totalData = 0;
 
-    public Data(FileHandler fh) {
-        this.fh = fh;
-        fileData = fh.linesInFile;
+    /**
+     * Creates a new data object
+     * @param fh
+     *          a file handler used to get the data from a file
+     */
+    Data(FileHandler fh) {
+        String[] fileData = fh.linesInFile;
 
-        // fileData[0] := first line in file
-        // 0/1 := first / seconds words in line
         // +1 in order to also get classification
+        int numDecisionVariables = Integer.valueOf(fh.getWordAt(fileData[0], 0)) + 1;
+
         // -1 in order to NOT get first line of fileData
-        numDecisionVariables = Integer.valueOf(fh.getWordAt(fileData[0], 0)) + 1;
-        totalData = Integer.valueOf(fh.getWordAt(fileData[0], 1)) - 1;
+        int totalData = Integer.valueOf(fh.getWordAt(fileData[0], 1)) - 1;
 
-        createData();
-    }
-
-    public void createData() {
         for (int i = 1; i <= totalData; i++) {
             HashMap<Integer, Integer> tmpDataLine = new HashMap<>();
             String curLine = fileData[i];
 
             for (int j = 0; j < numDecisionVariables; j++) {
-                int dataValue = 0;
+                int dataValue;
                 dataValue = Integer.valueOf(fh.getWordAt(curLine, j));
 
                 if (j == numDecisionVariables - 1)
@@ -47,14 +40,6 @@ public class Data {
             }
 
             data.add(tmpDataLine);
-        }
-    }
-
-    public void displayData() {
-        System.out.println("Num elements: " + data.size());
-
-        for (HashMap<Integer, Integer> h : data) {
-            System.out.println(h);
         }
     }
 }
